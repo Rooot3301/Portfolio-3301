@@ -9,24 +9,24 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-40 bg-black">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-32 md:pt-40 bg-black">
       <div className="max-w-4xl mx-auto text-center">
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <Terminal className="w-12 h-12 text-red-500 animate-pulse" />
+        <div className="flex items-center justify-center gap-3 mb-6 md:mb-8">
+          <Terminal className="w-10 h-10 md:w-12 md:h-12 text-red-500 animate-pulse" />
         </div>
 
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 md:mb-6">
           <span className="glitch-text" data-text="root3301">
             root3301
           </span>
         </h1>
 
-        <div className="flex justify-center items-center gap-4 mb-6 flex-wrap">
+        <div className="flex justify-center items-center gap-3 md:gap-4 mb-4 md:mb-6 flex-wrap">
           <StatusIndicator />
           <DiscordBadge />
         </div>
 
-        <p className="text-xl text-gray-400 mb-8 font-mono">
+        <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-6 md:mb-8 font-mono px-4">
           $ whoami
           <br />
           <span className="text-red-500">&gt;</span> Spécialiste en Cybersécurité & Systèmes
@@ -34,20 +34,20 @@ export default function Hero() {
           <span className="text-red-500">&gt;</span> Chercheur en Sécurité | Pentester | Joueur CTF
         </p>
 
-        <div className="flex items-center justify-center gap-4 mb-12">
+        <div className="flex items-center justify-center gap-3 md:gap-4 mb-8 md:mb-12 flex-wrap px-4">
           <a
             href="#about"
             onClick={(e) => {
               e.preventDefault();
               scrollToAbout();
             }}
-            className="px-6 py-3 border border-gray-800 hover:border-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 rounded-lg transform hover:scale-105"
+            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base border border-gray-800 hover:border-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 rounded-lg transform hover:scale-105"
           >
             ./explore.sh
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 bg-red-500 text-white hover:bg-red-600 transition-colors rounded-lg transform hover:scale-105 duration-300"
+            className="px-4 py-2 md:px-6 md:py-3 text-sm md:text-base bg-red-500 text-white hover:bg-red-600 transition-colors rounded-lg transform hover:scale-105 duration-300"
           >
             ./contact.sh
           </a>
@@ -58,7 +58,7 @@ export default function Hero() {
           className="animate-bounce text-gray-400 hover:text-red-500 transition-colors"
           aria-label="Scroll down"
         >
-          <ChevronDown className="w-8 h-8" />
+          <ChevronDown className="w-6 h-6 md:w-8 md:h-8" />
         </button>
       </div>
     </section>

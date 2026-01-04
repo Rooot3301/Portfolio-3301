@@ -1,4 +1,4 @@
-import { Terminal, Shield, Server, Network, Eye, Cog } from 'lucide-react';
+import { Terminal, Shield, Server, Network, Eye, Cog, Sword } from 'lucide-react';
 
 export default function Skills() {
   const skills = [
@@ -6,6 +6,11 @@ export default function Skills() {
       icon: Shield,
       category: 'Cybersécurité',
       items: ['Hardening Windows/Linux', 'Vulnérabilités', 'Monitoring', 'Tests de Pénétration']
+    },
+    {
+      icon: Sword,
+      category: 'Red Teaming',
+      items: ['Exploitation', 'Post-Exploitation', 'Pivoting', 'Social Engineering']
     },
     {
       icon: Eye,

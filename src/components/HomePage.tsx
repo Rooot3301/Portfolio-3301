@@ -11,7 +11,6 @@ import HoneypotLogs from './HoneypotLogs';
 import Footer from './Footer';
 import ScrollProgress from './ScrollProgress';
 import AnnouncementBanner from './AnnouncementBanner';
-import StatusIndicator from './StatusIndicator';
 import VisitorStats from './VisitorStats';
 
 export default function HomePage() {
@@ -19,6 +18,10 @@ export default function HomePage() {
   const [konamiSequence, setKonamiSequence] = useState<string[]>([]);
 
   const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
@@ -61,10 +64,7 @@ export default function HomePage() {
         <Terminal />
       </main>
       <Footer />
-      <div className="fixed bottom-4 right-4 z-40 flex flex-col items-end gap-2">
-        <StatusIndicator />
-        <VisitorStats />
-      </div>
+      <VisitorStats />
     </div>
   );
 }

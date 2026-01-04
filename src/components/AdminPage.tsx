@@ -46,6 +46,7 @@ export default function AdminPage() {
   const [statusMessage, setStatusMessage] = useState('');
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     checkAuth();
   }, []);
 

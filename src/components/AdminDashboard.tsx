@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { BarChart3, Users, Eye, X, Megaphone, Plus, Trash2 } from 'lucide-react';
+import { BarChart3, Users, Eye, X, Megaphone, Plus, Trash2, LogOut } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import AdminLogin from './AdminLogin';
 
 interface AnalyticsData {
   totalViews: number;
@@ -21,6 +22,8 @@ interface Announcement {
 
 export default function AdminDashboard() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [activeTab, setActiveTab] = useState<'analytics' | 'announcements'>('analytics');
   const [analytics, setAnalytics] = useState<AnalyticsData>({
     totalViews: 0,
@@ -30,6 +33,36 @@ export default function AdminDashboard() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [newAnnouncement, setNewAnnouncement] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const checkAuth = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      setIsAuthenticated(false);
+      return false;
+    }
+
+    const { data: adminData } = await supabase
+      .from('admin_users')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    const isAdmin = !!adminData;
+    setIsAuthenticated(isAdmin);
+    return isAdmin;
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
+    setIsOpen(false);
+  };
+
+  const handleLoginSuccess = () => {
+    setShowLogin(false);
+    setIsAuthenticated(true);
+  };
 
   const fetchAnalytics = async () => {
     setLoading(true);
@@ -129,13 +162,32 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (isOpen) {
+      (async () => {
+        const isAuth = await checkAuth();
+        if (!isAuth) {
+          setShowLogin(true);
+        } else if (activeTab === 'analytics') {
+          fetchAnalytics();
+        } else {
+          fetchAnnouncements();
+        }
+      })();
+    }
+  }, [isOpen, activeTab]);
+
+  useEffect(() => {
+    if (isAuthenticated && isOpen) {
       if (activeTab === 'analytics') {
         fetchAnalytics();
       } else {
         fetchAnnouncements();
       }
     }
-  }, [isOpen, activeTab]);
+  }, [isAuthenticated]);
+
+  if (showLogin) {
+    return <AdminLogin onClose={() => { setShowLogin(false); setIsOpen(false); }} onLoginSuccess={handleLoginSuccess} />;
+  }
 
   if (!isOpen) {
     return (
@@ -149,6 +201,10 @@ export default function AdminDashboard() {
     );
   }
 
+  if (!isAuthenticated) {
+    return null;
+  }
+
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-gray-900 border border-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
@@ -157,13 +213,23 @@ export default function AdminDashboard() {
             <BarChart3 className="w-5 h-5 text-red-500" />
             <h2 className="text-lg font-bold">Admin Dashboard</h2>
           </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleLogout}
+              className="p-2 hover:bg-gray-800 rounded-lg transition-colors text-gray-400 hover:text-red-500"
+              aria-label="Déconnexion"
+              title="Déconnexion"
+            >
+              <LogOut className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         <div className="flex border-b border-gray-800">

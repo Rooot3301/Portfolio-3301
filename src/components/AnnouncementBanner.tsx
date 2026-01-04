@@ -33,7 +33,7 @@ export default function AnnouncementBanner() {
   const allMessages = announcements.map(a => a.message).join(' • ');
 
   return (
-    <div className="fixed top-[4.5rem] left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-b border-green-500/30 shadow-lg shadow-green-500/5">
+    <div className="fixed top-24 left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-b border-green-500/30 shadow-lg shadow-green-500/5">
       <div className="max-w-7xl mx-auto py-2 px-4">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 flex-1 overflow-hidden">

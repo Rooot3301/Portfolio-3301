@@ -75,7 +75,7 @@ export default function DiscordServerWidget() {
         href={`https://discord.gg/${SERVER_ID}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 flex items-center justify-center gap-2 w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors"
+        className="mt-4 flex items-center justify-center gap-2 w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
       >
         <Users className="w-4 h-4" />
         Rejoindre le serveur

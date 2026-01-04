@@ -63,9 +63,9 @@ export default function HomePage() {
         <GitHubProjects />
 
         <section className="py-20 bg-gradient-to-b from-black to-slate-900">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">Discord</h2>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               <DiscordProfileCard />
               <DiscordServerWidget />
             </div>

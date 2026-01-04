@@ -124,7 +124,7 @@ export default function DiscordProfileCard() {
       {customActivity && (
         <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700">
           <div className="flex items-center gap-2">
-            <Code className="w-4 h-4 text-purple-500" />
+            <Code className="w-4 h-4 text-cyan-500" />
             <p className="text-sm text-slate-300">{customActivity.state}</p>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function DiscordProfileCard() {
         href={`https://discord.com/users/${data.discord_user.id}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-4 block w-full text-center py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors"
+        className="mt-4 block w-full text-center py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
       >
         Ouvrir dans Discord
       </a>

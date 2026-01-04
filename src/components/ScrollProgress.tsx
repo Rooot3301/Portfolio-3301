@@ -25,7 +25,7 @@ export default function ScrollProgress() {
   const progressBar = '>' + '-'.repeat(Math.max(0, filledBars - 1)) + '-'.repeat(Math.max(0, totalBars - filledBars));
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gray-800 px-4 py-2">
+    <div className="fixed top-16 left-0 right-0 z-40 bg-black border-b border-gray-800 px-4 py-2">
       <div className="max-w-4xl mx-auto">
         <div className="font-mono text-sm text-gray-400 flex items-center justify-between">
           <span className="text-red-500">[{progressBar}]</span>

@@ -1,16 +1,8 @@
 import { Terminal, Moon, Sun } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 export default function Header() {
-  const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -56,11 +48,11 @@ export default function Header() {
             </button>
 
             <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 hover:bg-gray-900 rounded-lg transition-colors"
+              onClick={toggleTheme}
+              className="p-2 hover:bg-gray-900 dark:hover:bg-gray-900 hover:bg-gray-200 rounded-lg transition-colors"
               aria-label="Toggle dark mode"
             >
-              {darkMode ? (
+              {isDarkMode ? (
                 <Sun className="w-4 h-4" />
               ) : (
                 <Moon className="w-4 h-4" />

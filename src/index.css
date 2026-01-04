@@ -6,6 +6,46 @@ body {
   font-family: 'JetBrains Mono', monospace;
   background-color: #000000;
   color: #e5e7eb;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light body {
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+.light {
+  background-color: #f9fafb;
+  color: #1f2937;
+}
+
+.light .bg-black {
+  background-color: #ffffff !important;
+}
+
+.light .text-gray-400 {
+  color: #6b7280 !important;
+}
+
+.light .text-gray-300 {
+  color: #4b5563 !important;
+}
+
+.light .text-gray-200 {
+  color: #1f2937 !important;
+}
+
+.light .border-gray-800 {
+  border-color: #e5e7eb !important;
+}
+
+.light .bg-gray-900 {
+  background-color: #f3f4f6 !important;
+}
+
+.light .section-content {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
 }
 
 @layer components {

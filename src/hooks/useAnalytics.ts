@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const getVisitorId = () => {
   let visitorId = localStorage.getItem('visitor_id');
@@ -12,6 +12,11 @@ const getVisitorId = () => {
 
 export const useAnalytics = () => {
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      console.log('Analytics disabled: Supabase not configured');
+      return;
+    }
+
     const trackPageView = async () => {
       try {
         const visitorId = getVisitorId();

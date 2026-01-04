@@ -1,5 +1,6 @@
 import { Terminal, ChevronDown } from 'lucide-react';
 import StatusIndicator from './StatusIndicator';
+import DiscordBadge from './DiscordBadge';
 
 export default function Hero() {
   const scrollToAbout = () => {
@@ -20,8 +21,9 @@ export default function Hero() {
           </span>
         </h1>
 
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center items-center gap-4 mb-6 flex-wrap">
           <StatusIndicator />
+          <DiscordBadge />
         </div>
 
         <p className="text-xl text-gray-400 mb-8 font-mono">

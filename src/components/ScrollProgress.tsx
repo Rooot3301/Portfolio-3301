@@ -27,11 +27,12 @@ export default function ScrollProgress() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const totalBars = 30;
-  const filledBars = Math.ceil((scrollProgress / 100) * totalBars);
+  const totalBars = 20;
+  const position = Math.floor((scrollProgress / 100) * totalBars);
 
-  const filled = '█'.repeat(Math.max(0, Math.min(totalBars, filledBars)));
-  const empty = '░'.repeat(Math.max(0, totalBars - filledBars));
+  const beforeArrow = '-'.repeat(Math.max(0, position));
+  const arrow = scrollProgress < 100 ? '>' : '=';
+  const afterArrow = '-'.repeat(Math.max(0, totalBars - position - 1));
 
   return (
     <div className="fixed top-16 left-0 right-0 z-40 bg-black/95 backdrop-blur-sm border-b border-green-500/30 px-4 py-2 shadow-lg shadow-green-500/5">
@@ -39,14 +40,15 @@ export default function ScrollProgress() {
         <div className="font-mono text-xs flex items-center justify-between gap-3">
           <span className="text-gray-500 font-semibold">root@kali:</span>
           <div className="flex-1 flex items-center gap-2">
-            <span className="text-green-500 font-bold">[</span>
-            <div className="flex-1 relative h-4 flex items-center">
-              <span className={`text-green-500 transition-all duration-150 ${scrollProgress === 100 ? 'text-green-400' : ''}`}>
-                {filled}
+            <span className="text-green-500">[</span>
+            <div className="flex-1 relative flex items-center font-mono">
+              <span className="text-gray-700">{beforeArrow}</span>
+              <span className={`transition-colors duration-150 ${scrollProgress === 100 ? 'text-green-400' : 'text-green-500'}`}>
+                {arrow}
               </span>
-              <span className="text-gray-800">{empty}</span>
+              <span className="text-gray-700">{afterArrow}</span>
             </div>
-            <span className="text-green-500 font-bold">]</span>
+            <span className="text-green-500">]</span>
           </div>
           <span className={`font-bold min-w-[3rem] text-right transition-colors duration-150 ${
             scrollProgress === 100 ? 'text-green-400' : 'text-green-500'

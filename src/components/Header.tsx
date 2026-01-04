@@ -1,6 +1,7 @@
 import { Terminal, Moon, Sun, Github, Shield } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { navigate } from './Router';
+import DiscordBadge from './DiscordBadge';
 
 export default function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -14,13 +15,19 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-gray-800">
       <div className="max-w-4xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => scrollToSection('hero')}
-            className="flex items-center gap-2 text-lg font-bold hover:text-red-500 transition-colors"
-          >
-            <Terminal className="w-5 h-5" />
-            <span>root3301</span>
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => scrollToSection('hero')}
+              className="flex items-center gap-2 text-lg font-bold hover:text-red-500 transition-colors"
+            >
+              <Terminal className="w-5 h-5" />
+              <span>root3301</span>
+            </button>
+
+            <div className="hidden md:block">
+              <DiscordBadge />
+            </div>
+          </div>
 
           <nav className="flex items-center gap-6">
             <button

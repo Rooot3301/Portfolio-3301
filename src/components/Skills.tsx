@@ -1,4 +1,4 @@
-import { Terminal, Shield, Server, Globe, Network, Eye, Cog } from 'lucide-react';
+import { Terminal, Shield, Server, Network, Eye, Cog } from 'lucide-react';
 
 export default function Skills() {
   const skills = [
@@ -26,11 +26,6 @@ export default function Skills() {
       icon: Cog,
       category: 'Automatisation',
       items: ['PowerShell', 'Python', 'Scripts d\'audit', 'Bash Scripting']
-    },
-    {
-      icon: Globe,
-      category: 'Technologies Web',
-      items: ['React', 'Node.js', 'Sécurité API', 'OWASP Top 10']
     }
   ];
 

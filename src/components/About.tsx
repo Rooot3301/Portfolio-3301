@@ -19,17 +19,26 @@ export default function About() {
                 </span>
               </h2>
               <p className="text-gray-400 leading-relaxed">
-                Chercheur en sécurité, pentester et passionné de cybersécurité.
-                Passionné par la découverte de vulnérabilités, le cassage de systèmes (légalement) et
-                l'aide aux organisations pour améliorer leur posture de sécurité.
+                Spécialiste en cybersécurité et systèmes, chercheur en sécurité et pentester.
+                Experte en hardening de systèmes Windows/Linux, monitoring, analyse OSINT,
+                administration réseau et virtualisation. Passionnée par la découverte de vulnérabilités,
+                le cassage de systèmes (légalement) et l'aide aux organisations pour améliorer
+                leur posture de sécurité.
               </p>
             </div>
 
             <div className="border-l-2 border-red-500 pl-3">
               <p className="text-sm text-gray-400 whitespace-pre-wrap">
                 {`$ whoami
-> Chercheur en sécurité spécialisé dans la sécurité des applications web,
-  les tests de pénétration réseau et la recherche de vulnérabilités.
+> Spécialiste en cybersécurité spécialisée dans le hardening de systèmes,
+  les tests de pénétration, l'analyse OSINT et l'administration d'infrastructures.
+
+$ cat /etc/specialties
+> Hardening Windows/Linux, Vulnérabilités, Monitoring
+> OSINT & Analyse, Collecte automatisée, Reconnaissance
+> Firewalling, VLAN, Analyse de trafic réseau
+> Virtualisation ESXi/VMware, Sauvegardes, AD/GPO
+> Automatisation PowerShell/Python, Scripts d'audit
 
 $ cat /etc/interests
 > Sécurité web, compétitions CTF, développement d'exploits,

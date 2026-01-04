@@ -1,26 +1,31 @@
-import { Terminal, Code2, Shield, Server, Database, Globe } from 'lucide-react';
+import { Terminal, Shield, Server, Globe, Network, Eye, Cog } from 'lucide-react';
 
 export default function Skills() {
   const skills = [
     {
       icon: Shield,
-      category: 'Sécurité',
-      items: ['Tests de Pénétration', 'Sécurité Web', 'Sécurité Réseau', 'Développement d\'Exploits']
+      category: 'Cybersécurité',
+      items: ['Hardening Windows/Linux', 'Vulnérabilités', 'Monitoring', 'Tests de Pénétration']
     },
     {
-      icon: Code2,
-      category: 'Développement',
-      items: ['Python', 'JavaScript/TypeScript', 'Go', 'Bash/Shell Scripting']
+      icon: Eye,
+      category: 'OSINT & Analyse',
+      items: ['Collecte d\'informations', 'Automatisation', 'Reconnaissance', 'Analyse de données']
+    },
+    {
+      icon: Network,
+      category: 'Réseau',
+      items: ['Firewalling', 'VLAN', 'Analyse de trafic', 'Sécurité Réseau']
     },
     {
       icon: Server,
-      category: 'Infrastructure',
-      items: ['Linux/Unix', 'Docker', 'CI/CD', 'Sécurité Cloud']
+      category: 'Systèmes',
+      items: ['Virtualisation ESXi/VMware', 'Sauvegardes', 'Active Directory/GPO', 'Linux/Unix']
     },
     {
-      icon: Database,
-      category: 'Bases de Données',
-      items: ['SQL/NoSQL', 'PostgreSQL', 'Redis', 'Sécurité des BDD']
+      icon: Cog,
+      category: 'Automatisation',
+      items: ['PowerShell', 'Python', 'Scripts d\'audit', 'Bash Scripting']
     },
     {
       icon: Globe,

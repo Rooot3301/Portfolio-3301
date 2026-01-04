@@ -22,6 +22,8 @@ export default function Hero() {
         <p className="text-xl text-gray-400 mb-8 font-mono">
           $ whoami
           <br />
+          <span className="text-red-500">&gt;</span> Spécialiste en Cybersécurité & Systèmes
+          <br />
           <span className="text-red-500">&gt;</span> Chercheur en Sécurité | Pentester | Joueur CTF
         </p>
 

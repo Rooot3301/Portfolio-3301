@@ -20,15 +20,16 @@ export default function Terminal() {
   whoami    - Afficher les informations utilisateur
   date      - Afficher la date et l'heure`,
 
-    about: () => `root3301 - Chercheur en Sécurité & Pentester
-Spécialisé dans la sécurité des applications web et la recherche de vulnérabilités.`,
+    about: () => `root3301 - Spécialiste en Cybersécurité & Systèmes
+Experte en hardening, OSINT, administration réseau et virtualisation.
+Spécialisée dans la sécurité des applications web et la recherche de vulnérabilités.`,
 
     skills: () => `Compétences principales:
-  • Tests de Pénétration
-  • Sécurité des Applications Web
-  • Python, JavaScript, Go
-  • Systèmes Linux/Unix
-  • Sécurité Réseau`,
+  • Cybersécurité: Hardening Windows/Linux, Vulnérabilités, Monitoring
+  • OSINT & Analyse: Collecte, Automatisation, Reconnaissance
+  • Réseau: Firewalling, VLAN, Analyse de trafic
+  • Systèmes: Virtualisation ESXi/VMware, Sauvegardes, AD/GPO
+  • Automatisation: PowerShell, Python, Scripts d'audit`,
 
     projects: () => `Projets notables:
   • Scanner de Vulnérabilités

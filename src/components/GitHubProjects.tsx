@@ -21,15 +21,17 @@ export default function GitHubProjects() {
   useEffect(() => {
     const fetchRepos = async () => {
       try {
-        const response = await fetch('https://api.github.com/users/Rooot3301/repos?sort=updated&per_page=10', {
+        const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/github-repos`;
+
+        const response = await fetch(apiUrl, {
           headers: {
-            'Accept': 'application/vnd.github.v3+json'
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           }
         });
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
-          console.error('GitHub API error:', response.status, errorData);
+          console.error('API error:', response.status, errorData);
           throw new Error(`Failed to fetch repositories (${response.status})`);
         }
 

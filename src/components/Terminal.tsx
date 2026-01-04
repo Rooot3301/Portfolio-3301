@@ -8,6 +8,27 @@ interface GameState {
   maxAttempts: number;
 }
 
+interface CryptoChallenge {
+  active: boolean;
+  encrypted: string;
+  decrypted: string;
+  cipher: string;
+}
+
+interface MemoryGame {
+  active: boolean;
+  sequence: number[];
+  userSequence: number[];
+  round: number;
+}
+
+interface SecurityQuiz {
+  active: boolean;
+  currentQuestion: number;
+  score: number;
+  answered: boolean;
+}
+
 const formatDate = (date: Date) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -37,6 +58,9 @@ export default function Terminal() {
   const [input, setInput] = useState('');
   const [currentPath] = useState('~');
   const loginTime = useMemo(() => new Date(), []);
+  const [githubStats, setGithubStats] = useState<{ repos: number; stars: number; followers: number } | null>(null);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const [history, setHistory] = useState<string[]>([
     '╔═══════════════════════════════════════════════════════════════╗',
     '║                      Kali Linux 2026.1                       ║',
@@ -52,6 +76,24 @@ export default function Terminal() {
     target: '',
     attempts: 0,
     maxAttempts: 5
+  });
+  const [cryptoChallenge, setCryptoChallenge] = useState<CryptoChallenge>({
+    active: false,
+    encrypted: '',
+    decrypted: '',
+    cipher: ''
+  });
+  const [memoryGame, setMemoryGame] = useState<MemoryGame>({
+    active: false,
+    sequence: [],
+    userSequence: [],
+    round: 0
+  });
+  const [securityQuiz, setSecurityQuiz] = useState<SecurityQuiz>({
+    active: false,
+    currentQuestion: 0,
+    score: 0,
+    answered: false
   });
   const [matrixMode, setMatrixMode] = useState(false);
   const [suMode, setSuMode] = useState(false);
@@ -73,6 +115,61 @@ export default function Terminal() {
   `;
 
   const wordList = ['password', 'admin', 'root', 'secret', 'exploit', 'backdoor', 'shell', 'access'];
+
+  const securityQuestions = [
+    {
+      question: "What does XSS stand for?",
+      options: ["1) Extra Secure System", "2) Cross-Site Scripting", "3) XML Security Service", "4) eXtended SQL Syntax"],
+      answer: 2
+    },
+    {
+      question: "Which port is typically used for HTTPS?",
+      options: ["1) 80", "2) 8080", "3) 443", "4) 22"],
+      answer: 3
+    },
+    {
+      question: "What does SQL injection exploit?",
+      options: ["1) Network protocols", "2) Database queries", "3) File systems", "4) Memory buffers"],
+      answer: 2
+    },
+    {
+      question: "What is a common use of Metasploit?",
+      options: ["1) Web browsing", "2) Penetration testing", "3) Email encryption", "4) Password storage"],
+      answer: 2
+    },
+    {
+      question: "What does OWASP stand for?",
+      options: ["1) Open Web Application Security Project", "2) Online Wireless Access Security Protocol", "3) Operating Web Authentication System Protocol", "4) Organized Web Attack Security Program"],
+      answer: 1
+    }
+  ];
+
+  useEffect(() => {
+    const fetchGitHubStats = async () => {
+      try {
+        const response = await fetch('https://api.github.com/users/Rooot3301');
+        if (response.ok) {
+          const data = await response.json();
+          setGithubStats({
+            repos: data.public_repos,
+            stars: 0,
+            followers: data.followers
+          });
+
+          const reposResponse = await fetch('https://api.github.com/users/Rooot3301/repos?per_page=100');
+          if (reposResponse.ok) {
+            const repos = await reposResponse.json();
+            const totalStars = repos.reduce((acc: number, repo: any) => acc + repo.stargazers_count, 0);
+            setGithubStats(prev => prev ? { ...prev, stars: totalStars } : null);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching GitHub stats:', error);
+      }
+    };
+
+    fetchGitHubStats();
+  }, []);
 
   const startGame = () => {
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
@@ -114,6 +211,9 @@ export default function Terminal() {
 
   ┌─ Fun & Games ─────────────────────────────────────────┐
   │ hack          Start password cracker game             │
+  │ crypto        Cryptography challenge                  │
+  │ memory        Memory sequence game                    │
+  │ quiz          Security knowledge quiz                 │
   │ matrix        Enter the matrix                        │
   │ nmap          Simulate network scan                   │
   │ exploit       Try to exploit the system               │
@@ -183,19 +283,33 @@ export default function Terminal() {
 
   View more on GitHub: https://github.com/Rooot3301`,
 
-    github: () => `Opening GitHub profile...
-
-  Profile: https://github.com/Rooot3301
-
+    github: () => {
+      const stats = githubStats ? `
+  ┌─ GitHub Stats ───────────────────────────────────────────┐
+  │ Username:    Rooot3301                                   │
+  │ Profile:     https://github.com/Rooot3301               │
+  │ Public Repos: ${githubStats.repos.toString().padEnd(48)}│
+  │ Total Stars:  ${githubStats.stars.toString().padEnd(48)}│
+  │ Followers:    ${githubStats.followers.toString().padEnd(48)}│
+  │ Focus:       Security Tools, CTF, Automation            │
+  │                                                          │
+  │ "Building tools for a more secure digital world"        │
+  └──────────────────────────────────────────────────────────┘` : `
   ┌─ GitHub Stats ───────────────────────────────────────────┐
   │ Username:    Rooot3301                                   │
   │ Profile:     https://github.com/Rooot3301               │
   │ Focus:       Security Tools, CTF, Automation            │
   │                                                          │
   │ "Building tools for a more secure digital world"        │
-  └──────────────────────────────────────────────────────────┘
+  └──────────────────────────────────────────────────────────┘`;
 
-  Opening in browser...`,
+      return `Opening GitHub profile...
+
+  Profile: https://github.com/Rooot3301
+${stats}
+
+  Opening in browser...`;
+    },
 
     contact: () => `Contact Information:
 
@@ -206,7 +320,12 @@ export default function Terminal() {
   PGP Key: Available on request
   Response time: Usually within 24-48 hours`,
 
-    neofetch: () => `${kaliArt}
+    neofetch: () => {
+      const statsLine = githubStats
+        ? `  GitHub: ${githubStats.repos} repos | ${githubStats.stars} stars | ${githubStats.followers} followers`
+        : '  GitHub: Loading stats...';
+
+      return `${kaliArt}
   root3301@kali-security
   ─────────────────────
   OS: Kali Linux 2026.1 x86_64
@@ -216,7 +335,9 @@ export default function Terminal() {
   Shell: bash 5.1.16
   Terminal: root3301-terminal
   CPU: Intel i7-9700K (8) @ 3.60GHz
-  Memory: ${Math.floor(Math.random() * 4000 + 4000)}MiB / 16384MiB`,
+  Memory: ${Math.floor(Math.random() * 4000 + 4000)}MiB / 16384MiB
+${statsLine}`;
+    },
 
     clear: () => {
       setHistory([]);
@@ -404,11 +525,6 @@ KONAMI CODE ACTIVATED!
 
 Just kidding... but you got the reference!`,
 
-    whoisthere: () => `Knock knock.
-Who's there?
-A cybersecurity specialist who knows you typed this command.
-I see you.`,
-
     'rm -rf': () => `WARNING: CRITICAL OPERATION
 You are about to delete EVERYTHING!
 Just kidding, this is a safe terminal simulation.
@@ -434,6 +550,190 @@ The Universe, and Everything is...
 42
 
 But what is the question?`,
+
+    crypto: () => {
+      const challenges = [
+        { cipher: 'ROT13', text: 'pelorefrphevgl', answer: 'cybersecurity' },
+        { cipher: 'Base64', text: 'aGFja2Vy', answer: 'hacker' },
+        { cipher: 'Caesar+5', text: 'ujwfqy', answer: 'pentax' }
+      ];
+      const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+      setCryptoChallenge({
+        active: true,
+        encrypted: challenge.text,
+        decrypted: challenge.answer,
+        cipher: challenge.cipher
+      });
+      return `╔═══════════════════════════════════════════════════════════╗
+║                  🔐 CRYPTO CHALLENGE 🔐                  ║
+╠═══════════════════════════════════════════════════════════╣
+║  Cipher: ${challenge.cipher.padEnd(50)}║
+║  Encrypted: ${challenge.text.padEnd(46)}║
+║                                                           ║
+║  Decrypt the message and type your answer                ║
+║  Type 'quit' to exit                                      ║
+╚═══════════════════════════════════════════════════════════╝`;
+    },
+
+    memory: () => {
+      const sequence = [Math.floor(Math.random() * 4) + 1];
+      setMemoryGame({
+        active: true,
+        sequence,
+        userSequence: [],
+        round: 1
+      });
+      return `╔═══════════════════════════════════════════════════════════╗
+║                  🧠 MEMORY CHALLENGE 🧠                  ║
+╠═══════════════════════════════════════════════════════════╣
+║  Remember the sequence and type it back!                 ║
+║  Round 1                                                  ║
+║                                                           ║
+║  Sequence: ${sequence.join(' ')}                                             ║
+║                                                           ║
+║  Type the numbers separated by spaces                    ║
+║  Type 'quit' to exit                                      ║
+╚═══════════════════════════════════════════════════════════╝`;
+    },
+
+    quiz: () => {
+      setSecurityQuiz({
+        active: true,
+        currentQuestion: 0,
+        score: 0,
+        answered: false
+      });
+      const q = securityQuestions[0];
+      return `╔═══════════════════════════════════════════════════════════╗
+║               🎯 SECURITY QUIZ CHALLENGE 🎯              ║
+╠═══════════════════════════════════════════════════════════╣
+║  Test your cybersecurity knowledge!                      ║
+║  Question 1/${securityQuestions.length}                                            ║
+║                                                           ║
+║  ${q.question.padEnd(56)}║
+║                                                           ║
+${q.options.map(opt => `║  ${opt.padEnd(56)}║`).join('\n')}
+║                                                           ║
+║  Type the number of your answer (1-4)                    ║
+║  Type 'quit' to exit                                      ║
+╚═══════════════════════════════════════════════════════════╝`;
+    },
+
+    rickroll: () => `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⣤⣤⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣤⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡆⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀
+⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠿⠿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀
+⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠈⠙⢿⣿⣿⣿⣿⣿⣿⡇⠀
+
+Never gonna give you up, never gonna let you down!
+You just got rickrolled! 🎵
+
+Opening YouTube...`,
+
+    secret: () => `*** HIDDEN COMMAND DISCOVERED ***
+
+You found a secret! Here are some hidden gems:
+
+Hidden Commands:
+  - rickroll      Get rickrolled
+  - theansweris42 Find the meaning of life
+  - iamgroot      Become Groot
+  - sudo make me a sandwich (try it!)
+  - tree          ASCII tree structure
+
+"In a world of 1s and 0s, be a wildcard."`,
+
+    theansweris42: () => `Deep Thought has spoken...
+
+After 7.5 million years of computation:
+The Answer to the Ultimate Question of Life,
+The Universe, and Everything is...
+
+██╗  ██╗██████╗
+██║  ██║╚════██╗
+███████║ █████╔╝
+╚════██║██╔═══╝
+     ██║███████╗
+     ╚═╝╚══════╝
+
+But... what was the question?`,
+
+    iamgroot: () => `I am Groot.
+I am Groot!
+I am Groot?
+I am Groot...
+
+Translation: "Thank you for visiting root3301's portfolio!"`,
+
+    'sudo make me a sandwich': () => `OKAY.
+
+[█████████████████████] 100%
+
+Here's your sandwich:
+
+    _____________________
+   /                     \\
+  /  🥬 🧀 🍅 🥓 🥬  \\
+ /________________________\\
+
+Enjoy your sudo sandwich!`,
+
+    tree: () => `root3301/
+├── skills/
+│   ├── cybersecurity/
+│   │   ├── penetration-testing
+│   │   ├── vulnerability-assessment
+│   │   └── security-monitoring
+│   ├── osint/
+│   │   ├── reconnaissance
+│   │   └── information-gathering
+│   └── infrastructure/
+│       ├── network-security
+│       └── system-administration
+├── projects/
+│   ├── Syffer
+│   ├── NetTrace
+│   ├── Sentinelize
+│   └── Ninjaa
+└── contact/
+    ├── email: contact@root3301.fr
+    └── github: Rooot3301
+
+8 directories, 12 files`,
+
+    cowsay: () => `
+ _____________________
+< Welcome to root3301 >
+ ---------------------
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`,
+
+    fortune: () => {
+      const fortunes = [
+        "A security expert is someone who hasn't been hacked... yet.",
+        "The best firewall is the one you don't know is there.",
+        "In cybersecurity, paranoia is just good planning.",
+        "There are two types of companies: those that have been hacked, and those that don't know it yet.",
+        "The most secure password is the one you can't remember.",
+        "A backdoor today keeps the hackers away... wait, that's not right!",
+        "Trust, but verify. Then verify again. And maybe once more."
+      ];
+      return fortunes[Math.floor(Math.random() * fortunes.length)];
+    },
+
+    whoisthere: () => `Knock knock.
+Who's there?
+root3301.
+root3301 who?
+root3301 is watching your IP: ${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}
+
+Just kidding! Your privacy is important. 😉`,
   };
 
   useEffect(() => {
@@ -446,6 +746,9 @@ But what is the question?`,
     const trimmedCmd = cmd.trim().toLowerCase();
 
     if (trimmedCmd === '') return;
+
+    setCommandHistory(prev => [...prev, cmd]);
+    setHistoryIndex(-1);
 
     const newHistory = [...history, `┌──(root3301㉿kali)-[${currentPath}]`, `└─# ${cmd}`];
 
@@ -466,6 +769,122 @@ But what is the question?`,
         newHistory.push('su: Authentication failure');
         newHistory.push('');
         setSuMode(false);
+      }
+      setHistory(newHistory);
+      setInput('');
+      return;
+    }
+
+    // Crypto challenge logic
+    if (cryptoChallenge.active) {
+      if (trimmedCmd === 'quit') {
+        setCryptoChallenge({ ...cryptoChallenge, active: false });
+        newHistory.push('Challenge terminated.');
+        newHistory.push('');
+      } else if (trimmedCmd === cryptoChallenge.decrypted) {
+        newHistory.push(`
+╔═══════════════════════════════════════════════════════════╗
+║                   🎉 CORRECT! 🎉                         ║
+╠═══════════════════════════════════════════════════════════╣
+║  You successfully decrypted the message!                 ║
+║  Answer: ${cryptoChallenge.decrypted.padEnd(48)}║
+║                                                           ║
+║  Type 'crypto' to play again.                            ║
+╚═══════════════════════════════════════════════════════════╝`);
+        setCryptoChallenge({ ...cryptoChallenge, active: false });
+        newHistory.push('');
+      } else {
+        newHistory.push(`❌ Incorrect! Try again or type 'quit' to exit.`);
+        newHistory.push('');
+      }
+      setHistory(newHistory);
+      setInput('');
+      return;
+    }
+
+    // Memory game logic
+    if (memoryGame.active) {
+      if (trimmedCmd === 'quit') {
+        setMemoryGame({ ...memoryGame, active: false });
+        newHistory.push('Game terminated.');
+        newHistory.push('');
+      } else {
+        const userSeq = cmd.trim().split(' ').map(n => parseInt(n));
+        if (JSON.stringify(userSeq) === JSON.stringify(memoryGame.sequence)) {
+          const nextRound = memoryGame.round + 1;
+          const newSequence = [...memoryGame.sequence, Math.floor(Math.random() * 4) + 1];
+          setMemoryGame({
+            active: true,
+            sequence: newSequence,
+            userSequence: [],
+            round: nextRound
+          });
+          newHistory.push(`✅ Correct! Round ${nextRound}`);
+          newHistory.push(`Sequence: ${newSequence.join(' ')}`);
+          newHistory.push('');
+        } else {
+          newHistory.push(`
+╔═══════════════════════════════════════════════════════════╗
+║                   ❌ GAME OVER! ❌                        ║
+╠═══════════════════════════════════════════════════════════╣
+║  You reached Round ${memoryGame.round}                                    ║
+║  The sequence was: ${memoryGame.sequence.join(' ').padEnd(33)}║
+║                                                           ║
+║  Type 'memory' to play again.                            ║
+╚═══════════════════════════════════════════════════════════╝`);
+          setMemoryGame({ ...memoryGame, active: false });
+          newHistory.push('');
+        }
+      }
+      setHistory(newHistory);
+      setInput('');
+      return;
+    }
+
+    // Security quiz logic
+    if (securityQuiz.active) {
+      if (trimmedCmd === 'quit') {
+        setSecurityQuiz({ ...securityQuiz, active: false });
+        newHistory.push(`Quiz terminated. Final score: ${securityQuiz.score}/${securityQuestions.length}`);
+        newHistory.push('');
+      } else {
+        const answer = parseInt(trimmedCmd);
+        const currentQ = securityQuestions[securityQuiz.currentQuestion];
+        const isCorrect = answer === currentQ.answer;
+        const newScore = isCorrect ? securityQuiz.score + 1 : securityQuiz.score;
+        const nextQuestion = securityQuiz.currentQuestion + 1;
+
+        if (isCorrect) {
+          newHistory.push(`✅ Correct!`);
+        } else {
+          newHistory.push(`❌ Wrong! The correct answer was ${currentQ.answer}`);
+        }
+        newHistory.push('');
+
+        if (nextQuestion >= securityQuestions.length) {
+          newHistory.push(`
+╔═══════════════════════════════════════════════════════════╗
+║                   🎉 QUIZ COMPLETED! 🎉                  ║
+╠═══════════════════════════════════════════════════════════╣
+║  Final Score: ${newScore}/${securityQuestions.length}                                       ║
+║                                                           ║
+║  ${newScore === securityQuestions.length ? 'Perfect score! You are a security expert!' : newScore >= 3 ? 'Good job! Keep learning!' : 'Keep studying security concepts!'.padEnd(56)}║
+║                                                           ║
+║  Type 'quiz' to play again.                              ║
+╚═══════════════════════════════════════════════════════════╝`);
+          setSecurityQuiz({ ...securityQuiz, active: false });
+          newHistory.push('');
+        } else {
+          const nextQ = securityQuestions[nextQuestion];
+          newHistory.push(`Question ${nextQuestion + 1}/${securityQuestions.length}: ${nextQ.question}`);
+          nextQ.options.forEach(opt => newHistory.push(opt));
+          newHistory.push('');
+          setSecurityQuiz({
+            ...securityQuiz,
+            currentQuestion: nextQuestion,
+            score: newScore
+          });
+        }
       }
       setHistory(newHistory);
       setInput('');
@@ -554,6 +973,35 @@ But what is the question?`,
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleCommand(input);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const newIndex = historyIndex === -1 ? commandHistory.length - 1 : Math.max(0, historyIndex - 1);
+        setHistoryIndex(newIndex);
+        setInput(commandHistory[newIndex]);
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIndex !== -1) {
+        const newIndex = historyIndex + 1;
+        if (newIndex >= commandHistory.length) {
+          setHistoryIndex(-1);
+          setInput('');
+        } else {
+          setHistoryIndex(newIndex);
+          setInput(commandHistory[newIndex]);
+        }
+      }
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      const availableCommands = Object.keys(commands);
+      const matches = availableCommands.filter(cmd => cmd.startsWith(input.toLowerCase()));
+      if (matches.length === 1) {
+        setInput(matches[0]);
+      } else if (matches.length > 1) {
+        const newHistory = [...history, `┌──(root3301㉿kali)-[${currentPath}]`, `└─# ${input}`, '', matches.join('  '), ''];
+        setHistory(newHistory);
+      }
     }
   };
 

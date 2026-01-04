@@ -4,13 +4,18 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import GitHubProjects from './components/GitHubProjects';
 import Contact from './components/Contact';
 import Terminal from './components/Terminal';
+import HoneypotLogs from './components/HoneypotLogs';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
+import AdminDashboard from './components/AdminDashboard';
+import { useAnalytics } from './hooks/useAnalytics';
 
 function App() {
+  useAnalytics();
   const [loading, setLoading] = useState(true);
   const [konamiMode, setKonamiMode] = useState(false);
   const [konamiSequence, setKonamiSequence] = useState<string[]>([]);
@@ -55,10 +60,13 @@ function App() {
         <About />
         <Skills />
         <Projects />
+        <GitHubProjects />
         <Contact />
+        <HoneypotLogs />
         <Terminal />
       </main>
       <Footer />
+      <AdminDashboard />
     </div>
   );
 }

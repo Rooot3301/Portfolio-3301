@@ -1,4 +1,5 @@
 import { Terminal, ChevronDown } from 'lucide-react';
+import StatusIndicator from './StatusIndicator';
 
 export default function Hero() {
   const scrollToAbout = () => {
@@ -18,6 +19,10 @@ export default function Hero() {
             root3301
           </span>
         </h1>
+
+        <div className="flex justify-center mb-6">
+          <StatusIndicator />
+        </div>
 
         <p className="text-xl text-gray-400 mb-8 font-mono">
           $ whoami

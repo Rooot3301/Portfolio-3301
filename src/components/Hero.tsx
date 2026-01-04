@@ -8,7 +8,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-32 bg-black">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-40 bg-black">
       <div className="max-w-4xl mx-auto text-center">
         <div className="flex items-center justify-center gap-3 mb-8">
           <Terminal className="w-12 h-12 text-red-500 animate-pulse" />

@@ -7,11 +7,11 @@ export default function Footer() {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-sm">
             <Terminal className="w-4 h-4" />
-            <span>© 2025 root3301.sh</span>
+            <span>© 2026 root3301.sh</span>
           </div>
 
           <div className="text-sm text-gray-400">
-            Press Ctrl + [1-5] to navigate
+            Appuyez sur Ctrl + [1-5] pour naviguer
           </div>
 
           <div className="flex items-center gap-2">

@@ -19,27 +19,27 @@ export default function About() {
                 </span>
               </h2>
               <p className="text-gray-400 leading-relaxed">
-                Security researcher, penetration tester, and cybersecurity enthusiast.
-                Passionate about finding vulnerabilities, breaking systems (legally), and
-                helping organizations improve their security posture.
+                Chercheur en sécurité, pentester et passionné de cybersécurité.
+                Passionné par la découverte de vulnérabilités, le cassage de systèmes (légalement) et
+                l'aide aux organisations pour améliorer leur posture de sécurité.
               </p>
             </div>
 
             <div className="border-l-2 border-red-500 pl-3">
               <p className="text-sm text-gray-400 whitespace-pre-wrap">
                 {`$ whoami
-> Security researcher specializing in web application security,
-  network penetration testing, and vulnerability research.
+> Chercheur en sécurité spécialisé dans la sécurité des applications web,
+  les tests de pénétration réseau et la recherche de vulnérabilités.
 
 $ cat /etc/interests
-> Web security, CTF competitions, exploit development,
-  reverse engineering, and teaching others about cybersecurity.`}
+> Sécurité web, compétitions CTF, développement d'exploits,
+  rétro-ingénierie et enseignement de la cybersécurité.`}
               </p>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-400">
               <Shield className="w-4 h-4 text-red-500" />
-              <span>Always learning, always hacking (ethically)</span>
+              <span>Toujours en apprentissage, toujours en train de hacker (éthiquement)</span>
             </div>
           </div>
         </div>

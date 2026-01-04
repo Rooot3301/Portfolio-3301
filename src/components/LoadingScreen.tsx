@@ -10,13 +10,13 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   const [logs, setLogs] = useState<string[]>([]);
 
   const bootLogs = [
-    'Initializing root3301 systems...',
-    'Loading kernel modules... [OK]',
-    'Mounting filesystems... [OK]',
-    'Starting network services... [OK]',
-    'Initializing security protocols... [OK]',
-    'Loading user interface... [OK]',
-    'System ready.'
+    'Initialisation des systèmes root3301...',
+    'Chargement des modules kernel... [OK]',
+    'Montage des systèmes de fichiers... [OK]',
+    'Démarrage des services réseau... [OK]',
+    'Initialisation des protocoles de sécurité... [OK]',
+    'Chargement de l\'interface utilisateur... [OK]',
+    'Système prêt.'
   ];
 
   useEffect(() => {

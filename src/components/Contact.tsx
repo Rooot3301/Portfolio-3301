@@ -10,7 +10,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('Message sent! (Demo mode)');
+    alert('Message envoyé ! (Mode démo)');
     setFormData({ email: '', message: '' });
   };
 
@@ -27,7 +27,7 @@ export default function Contact() {
             <div className="terminal-input">
               <div className="flex items-center gap-2 text-sm mb-2">
                 <Mail className="w-4 h-4" />
-                <label htmlFor="email">user@root3301 ~ % enter email:</label>
+                <label htmlFor="email">user@root3301 ~ % entrez votre email:</label>
               </div>
               <div className="flex items-center">
                 <span className="mr-2 text-gray-400">{'>'}</span>
@@ -45,7 +45,7 @@ export default function Contact() {
             <div className="terminal-input">
               <div className="flex items-center gap-2 text-sm mb-2">
                 <Send className="w-4 h-4" />
-                <label htmlFor="message">user@root3301 ~ % compose message:</label>
+                <label htmlFor="message">user@root3301 ~ % rédigez votre message:</label>
               </div>
               <div className="flex items-center">
                 <span className="mr-2 text-gray-400">{'>'}</span>

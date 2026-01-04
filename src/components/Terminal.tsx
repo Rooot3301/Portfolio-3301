@@ -4,39 +4,39 @@ import { useState, useEffect, useRef } from 'react';
 export default function Terminal() {
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([
-    'Welcome to root3301 terminal. Type "help" for available commands.'
+    'Bienvenue sur le terminal root3301. Tapez "help" pour voir les commandes disponibles.'
   ]);
   const outputRef = useRef<HTMLDivElement>(null);
 
   const commands: Record<string, () => string> = {
-    help: () => `Available commands:
-  help      - Show this help message
-  about     - Learn more about root3301
-  skills    - View technical skills
-  projects  - Browse projects
-  contact   - Get contact information
-  clear     - Clear terminal
-  ls        - List directories
-  whoami    - Display user information
-  date      - Show current date and time`,
+    help: () => `Commandes disponibles:
+  help      - Affiche ce message d'aide
+  about     - En savoir plus sur root3301
+  skills    - Voir les compétences techniques
+  projects  - Parcourir les projets
+  contact   - Obtenir les informations de contact
+  clear     - Effacer le terminal
+  ls        - Lister les répertoires
+  whoami    - Afficher les informations utilisateur
+  date      - Afficher la date et l'heure`,
 
-    about: () => `root3301 - Security Researcher & Penetration Tester
-Specializing in web application security and vulnerability research.`,
+    about: () => `root3301 - Chercheur en Sécurité & Pentester
+Spécialisé dans la sécurité des applications web et la recherche de vulnérabilités.`,
 
-    skills: () => `Core Skills:
-  • Penetration Testing
-  • Web Application Security
+    skills: () => `Compétences principales:
+  • Tests de Pénétration
+  • Sécurité des Applications Web
   • Python, JavaScript, Go
-  • Linux/Unix Systems
-  • Network Security`,
+  • Systèmes Linux/Unix
+  • Sécurité Réseau`,
 
-    projects: () => `Notable Projects:
-  • Vulnerability Scanner
-  • CTF Platform
-  • Security Toolkit
-  • API Security Framework`,
+    projects: () => `Projets notables:
+  • Scanner de Vulnérabilités
+  • Plateforme CTF
+  • Boîte à Outils Sécurité
+  • Framework Sécurité API`,
 
-    contact: () => `Contact Information:
+    contact: () => `Informations de contact:
 Email: contact@root3301.fr
 Website: https://root3301.fr`,
 
@@ -74,7 +74,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
         newHistory.push(output);
       }
     } else {
-      newHistory.push(`Command not found: ${cmd}. Type 'help' for available commands.`);
+      newHistory.push(`Commande introuvable: ${cmd}. Tapez 'help' pour voir les commandes disponibles.`);
     }
 
     setHistory(newHistory);
@@ -120,7 +120,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 className="flex-1 bg-transparent border-none outline-none terminal-cursor"
-                placeholder="Type a command..."
+                placeholder="Tapez une commande..."
               />
             </div>
           </div>

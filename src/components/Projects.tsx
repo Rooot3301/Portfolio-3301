@@ -3,27 +3,27 @@ import { Terminal, ExternalLink } from 'lucide-react';
 export default function Projects() {
   const projects = [
     {
-      title: 'Vulnerability Scanner',
-      description: 'Custom web application vulnerability scanner built with Python. Scans for common OWASP vulnerabilities including XSS, SQLi, and CSRF.',
-      tags: ['Python', 'Security', 'OWASP'],
+      title: 'Scanner de Vulnérabilités',
+      description: 'Scanner de vulnérabilités d\'applications web personnalisé développé en Python. Détecte les vulnérabilités OWASP courantes incluant XSS, SQLi et CSRF.',
+      tags: ['Python', 'Sécurité', 'OWASP'],
       link: '#'
     },
     {
-      title: 'CTF Platform',
-      description: 'Capture The Flag platform for cybersecurity training and competitions. Includes challenges for various skill levels.',
+      title: 'Plateforme CTF',
+      description: 'Plateforme Capture The Flag pour l\'entraînement et les compétitions en cybersécurité. Inclut des défis pour tous les niveaux.',
       tags: ['Node.js', 'React', 'Docker'],
       link: '#'
     },
     {
-      title: 'Security Toolkit',
-      description: 'Collection of penetration testing scripts and tools for reconnaissance, enumeration, and exploitation.',
-      tags: ['Bash', 'Python', 'Security'],
+      title: 'Boîte à Outils Sécurité',
+      description: 'Collection de scripts et outils de tests de pénétration pour la reconnaissance, l\'énumération et l\'exploitation.',
+      tags: ['Bash', 'Python', 'Sécurité'],
       link: '#'
     },
     {
-      title: 'API Security Framework',
-      description: 'Framework for testing and securing REST APIs. Includes automated testing for authentication, authorization, and injection vulnerabilities.',
-      tags: ['TypeScript', 'Security', 'API'],
+      title: 'Framework Sécurité API',
+      description: 'Framework pour tester et sécuriser les API REST. Inclut des tests automatisés pour l\'authentification, l\'autorisation et les vulnérabilités d\'injection.',
+      tags: ['TypeScript', 'Sécurité', 'API'],
       link: '#'
     }
   ];

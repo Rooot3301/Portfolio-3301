@@ -22,7 +22,7 @@ export default function Hero() {
         <p className="text-xl text-gray-400 mb-8 font-mono">
           $ whoami
           <br />
-          <span className="text-red-500">&gt;</span> Security Researcher | Penetration Tester | CTF Player
+          <span className="text-red-500">&gt;</span> Chercheur en Sécurité | Pentester | Joueur CTF
         </p>
 
         <div className="flex items-center justify-center gap-4 mb-12">

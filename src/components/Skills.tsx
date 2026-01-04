@@ -4,28 +4,28 @@ export default function Skills() {
   const skills = [
     {
       icon: Shield,
-      category: 'Security',
-      items: ['Penetration Testing', 'Web App Security', 'Network Security', 'Exploit Development']
+      category: 'Sécurité',
+      items: ['Tests de Pénétration', 'Sécurité Web', 'Sécurité Réseau', 'Développement d\'Exploits']
     },
     {
       icon: Code2,
-      category: 'Development',
+      category: 'Développement',
       items: ['Python', 'JavaScript/TypeScript', 'Go', 'Bash/Shell Scripting']
     },
     {
       icon: Server,
       category: 'Infrastructure',
-      items: ['Linux/Unix', 'Docker', 'CI/CD', 'Cloud Security']
+      items: ['Linux/Unix', 'Docker', 'CI/CD', 'Sécurité Cloud']
     },
     {
       icon: Database,
-      category: 'Databases',
-      items: ['SQL/NoSQL', 'PostgreSQL', 'Redis', 'Database Security']
+      category: 'Bases de Données',
+      items: ['SQL/NoSQL', 'PostgreSQL', 'Redis', 'Sécurité des BDD']
     },
     {
       icon: Globe,
-      category: 'Web Technologies',
-      items: ['React', 'Node.js', 'API Security', 'OWASP Top 10']
+      category: 'Technologies Web',
+      items: ['React', 'Node.js', 'Sécurité API', 'OWASP Top 10']
     }
   ];
 

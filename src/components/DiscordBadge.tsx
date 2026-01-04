@@ -1,44 +1,20 @@
-import { useEffect, useState } from 'react';
-
-interface DiscordStatus {
-  online: boolean;
-  status: 'online' | 'idle' | 'dnd' | 'offline';
-  activities?: Array<{
-    name: string;
-    type: number;
-  }>;
-}
+import { useDiscord } from '../hooks/useDiscord';
 
 export default function DiscordBadge() {
-  const [status, setStatus] = useState<DiscordStatus>({ online: false, status: 'offline' });
+  const { data } = useDiscord();
   const DISCORD_ID = import.meta.env.VITE_DISCORD_USER_ID;
 
-  useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-        const data = await response.json();
-
-        if (data.success) {
-          setStatus({
-            online: data.data.discord_status !== 'offline',
-            status: data.data.discord_status,
-            activities: data.data.activities
-          });
-        }
-      } catch (error) {
-        console.error('Failed to fetch Discord status:', error);
-      }
-    };
-
-    fetchStatus();
-    const interval = setInterval(fetchStatus, 30000); // Update every 30s
-
-    return () => clearInterval(interval);
-  }, []);
+  if (!data) {
+    return (
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700 animate-pulse">
+        <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+        <span className="text-xs font-medium text-slate-300">Loading...</span>
+      </div>
+    );
+  }
 
   const getStatusColor = () => {
-    switch (status.status) {
+    switch (data.discord_status) {
       case 'online': return 'bg-green-500';
       case 'idle': return 'bg-yellow-500';
       case 'dnd': return 'bg-red-500';
@@ -47,15 +23,16 @@ export default function DiscordBadge() {
   };
 
   const getStatusText = () => {
-    switch (status.status) {
-      case 'online': return 'Available on Discord';
-      case 'idle': return 'Away on Discord';
-      case 'dnd': return 'Busy on Discord';
-      default: return 'Offline on Discord';
+    switch (data.discord_status) {
+      case 'online': return 'Disponible sur Discord';
+      case 'idle': return 'Absent sur Discord';
+      case 'dnd': return 'Occupe sur Discord';
+      default: return 'Hors ligne sur Discord';
     }
   };
 
-  const currentActivity = status.activities?.find(a => a.type === 0); // Playing
+  const gameActivity = data.activities?.find(a => a.type === 0);
+  const isOnline = data.discord_status !== 'offline';
 
   return (
     <a
@@ -66,7 +43,7 @@ export default function DiscordBadge() {
     >
       <div className="relative">
         <div className={`w-2 h-2 rounded-full ${getStatusColor()}`} />
-        {status.online && (
+        {isOnline && (
           <div className={`absolute inset-0 w-2 h-2 rounded-full ${getStatusColor()} animate-ping opacity-75`} />
         )}
       </div>
@@ -75,9 +52,14 @@ export default function DiscordBadge() {
         <span className="text-xs font-medium text-slate-300 group-hover:text-white transition-colors">
           {getStatusText()}
         </span>
-        {currentActivity && (
+        {data.listening_to_spotify && data.spotify && (
           <span className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors">
-            Playing {currentActivity.name}
+            Ecoute {data.spotify.song}
+          </span>
+        )}
+        {!data.listening_to_spotify && gameActivity && (
+          <span className="text-[10px] text-slate-500 group-hover:text-slate-400 transition-colors">
+            Joue a {gameActivity.name}
           </span>
         )}
       </div>

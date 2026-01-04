@@ -12,6 +12,8 @@ import Footer from './Footer';
 import ScrollProgress from './ScrollProgress';
 import AnnouncementBanner from './AnnouncementBanner';
 import VisitorStats from './VisitorStats';
+import DiscordProfileCard from './DiscordProfileCard';
+import DiscordServerWidget from './DiscordServerWidget';
 
 export default function HomePage() {
   const [konamiMode, setKonamiMode] = useState(false);
@@ -59,6 +61,17 @@ export default function HomePage() {
         <Skills />
         <Projects />
         <GitHubProjects />
+
+        <section className="py-20 bg-gradient-to-b from-black to-slate-900">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center">Discord</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <DiscordProfileCard />
+              <DiscordServerWidget />
+            </div>
+          </div>
+        </section>
+
         <Contact />
         <HoneypotLogs />
         <Terminal />

@@ -1,4 +1,4 @@
-import { Terminal, Code2, Shield } from 'lucide-react';
+import { Terminal, Code2 } from 'lucide-react';
 
 export default function About() {
   return (
@@ -22,7 +22,7 @@ export default function About() {
                 Technicien passionné en cybersécurité, je suis spécialisé
                 dans la protection et la sécurisation des infrastructures
                 informatiques. Mon expertise couvre l'aspect défensif
-                de la sécurité.
+                de la sécurité avec une préférence marquée pour le Red Team.
               </p>
             </div>
 
@@ -50,10 +50,6 @@ $ cat /certifications
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-gray-400">
-              <Shield className="w-4 h-4 text-red-500" />
-              <span>Toujours en apprentissage, toujours en train de hacker (éthiquement)</span>
-            </div>
           </div>
         </div>
       </div>

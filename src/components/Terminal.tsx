@@ -1,5 +1,5 @@
 import { Terminal as TerminalIcon } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 interface GameState {
   active: boolean;
@@ -8,16 +8,42 @@ interface GameState {
   maxAttempts: number;
 }
 
+const formatDate = (date: Date) => {
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  const day = days[date.getDay()];
+  const month = months[date.getMonth()];
+  const dateNum = date.getDate();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const year = date.getFullYear();
+
+  return `${day} ${month} ${String(dateNum).padStart(2, ' ')} ${hours}:${minutes}:${seconds} ${year}`;
+};
+
+const getShortDate = (date: Date) => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const month = months[date.getMonth()];
+  const day = String(date.getDate()).padStart(2, ' ');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${month} ${day} ${hours}:${minutes}`;
+};
+
 export default function Terminal() {
   const [input, setInput] = useState('');
   const [currentPath] = useState('~');
+  const loginTime = useMemo(() => new Date(), []);
   const [history, setHistory] = useState<string[]>([
     '╔═══════════════════════════════════════════════════════════════╗',
     '║                      Kali Linux 2026.1                       ║',
     '║                    root3301 Security Lab                     ║',
     '╚═══════════════════════════════════════════════════════════════╝',
     '',
-    'Last login: Sat Jan  4 00:00:00 2026 from 127.0.0.1',
+    `Last login: ${formatDate(loginTime)} from 127.0.0.1`,
     'Type "help" to see available commands.',
     ''
   ]);
@@ -197,19 +223,23 @@ export default function Terminal() {
       return '';
     },
 
-    ls: () => `total 32
-drwxr-xr-x  2 root3301 root3301  4096 Jan  4 00:00 about
-drwxr-xr-x  2 root3301 root3301  4096 Jan  4 00:00 projects
-drwxr-xr-x  2 root3301 root3301  4096 Jan  4 00:00 skills
-drwxr-xr-x  2 root3301 root3301  4096 Jan  4 00:00 contact
--rw-r--r--  1 root3301 root3301  1337 Jan  4 00:00 README.md
--rwxr-xr-x  1 root3301 root3301  2048 Jan  4 00:00 security-scan.sh`,
+    ls: () => {
+      const now = new Date();
+      const dateStr = getShortDate(now);
+      return `total 32
+drwxr-xr-x  2 root3301 root3301  4096 ${dateStr} about
+drwxr-xr-x  2 root3301 root3301  4096 ${dateStr} projects
+drwxr-xr-x  2 root3301 root3301  4096 ${dateStr} skills
+drwxr-xr-x  2 root3301 root3301  4096 ${dateStr} contact
+-rw-r--r--  1 root3301 root3301  1337 ${dateStr} README.md
+-rwxr-xr-x  1 root3301 root3301  2048 ${dateStr} security-scan.sh`;
+    },
 
     pwd: () => `/home/root3301${currentPath === '~' ? '' : '/' + currentPath}`,
 
     whoami: () => 'root3301',
 
-    date: () => new Date().toString(),
+    date: () => formatDate(new Date()),
 
     uname: () => 'Linux kali-security 5.15.0-root3301 #1 SMP x86_64 GNU/Linux',
 
@@ -536,8 +566,8 @@ But what is the question?`,
         </div>
 
         <div className="section-content">
-          <div className={`border ${matrixMode ? 'border-green-500 animate-pulse' : 'border-green-500/30'} rounded-lg p-4 bg-black shadow-lg shadow-green-500/10 transition-all duration-300`}>
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-800">
+          <div className={`border ${matrixMode ? 'border-green-500 animate-pulse' : 'border-green-500/30'} rounded-lg p-4 bg-black shadow-lg shadow-green-500/10 transition-all duration-300 hover:border-green-500/50 hover:shadow-green-500/20`}>
+            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-800/50">
               <div className="flex gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -551,7 +581,7 @@ But what is the question?`,
             <div
               ref={outputRef}
               id="terminal-output"
-              className={`h-96 overflow-y-auto mb-4 font-mono text-sm ${matrixMode ? 'text-green-400' : ''}`}
+              className={`h-96 overflow-y-auto mb-4 font-mono text-sm scrollbar-thin scrollbar-thumb-green-500/20 scrollbar-track-transparent ${matrixMode ? 'text-green-400' : ''}`}
             >
               {history.map((line, index) => {
                 const isPromptLine = line.startsWith('┌──');
@@ -590,8 +620,8 @@ But what is the question?`,
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="flex-1 bg-transparent border-none outline-none terminal-cursor text-gray-300 font-mono text-sm"
-                  placeholder="Enter command..."
+                  className="flex-1 bg-transparent border-none outline-none terminal-cursor text-gray-300 font-mono text-sm placeholder:text-gray-600"
+                  placeholder="Type 'help' for commands..."
                   autoFocus
                 />
               </div>

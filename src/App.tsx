@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import ScrollProgress from './components/ScrollProgress';
 import AdminDashboard from './components/AdminDashboard';
+import AnnouncementBanner from './components/AnnouncementBanner';
 import { useAnalytics } from './hooks/useAnalytics';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
     <div className={`min-h-screen ${konamiMode ? 'konami-mode' : ''}`}>
       <ScrollProgress />
       <Header />
+      <AnnouncementBanner />
       <main>
         <Hero />
         <About />

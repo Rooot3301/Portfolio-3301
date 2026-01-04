@@ -2,7 +2,7 @@ import { Terminal, Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800">
+    <footer className="bg-black border-t border-gray-800">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-sm">
@@ -10,7 +10,7 @@ export default function Footer() {
             <span>© 2025 root3301.sh</span>
           </div>
 
-          <div className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="text-sm text-gray-400">
             Press Ctrl + [1-5] to navigate
           </div>
 

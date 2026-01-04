@@ -88,7 +88,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
   };
 
   return (
-    <section id="terminal" className="py-20 px-4 border-t border-gray-200 dark:border-gray-800">
+    <section id="terminal" className="py-20 px-4 bg-black border-t border-gray-800">
       <div className="max-w-4xl mx-auto">
         <div className="section-title">
           <TerminalIcon className="w-5 h-5" />
@@ -96,7 +96,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
         </div>
 
         <div className="section-content">
-          <div className="border border-gray-200 dark:border-gray-800 rounded-lg p-4 bg-gray-50 dark:bg-gray-900">
+          <div className="border border-gray-800 rounded-lg p-4 bg-gray-900">
             <div
               ref={outputRef}
               id="terminal-output"
@@ -105,7 +105,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
               {history.map((line, index) => (
                 <div
                   key={index}
-                  className={line.startsWith('$') ? 'text-blue-600 dark:text-blue-400' : ''}
+                  className={line.startsWith('$') ? 'text-blue-400' : ''}
                 >
                   {line}
                 </div>
@@ -113,7 +113,7 @@ drwxr-xr-x  2 root3301 root3301  4096 Mar 15 10:30 contact`,
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="text-green-600 dark:text-green-400">$</span>
+              <span className="text-green-400">$</span>
               <input
                 type="text"
                 value={input}

@@ -4,19 +4,21 @@
 
 body {
   font-family: 'JetBrains Mono', monospace;
+  background-color: #000000;
+  color: #e5e7eb;
 }
 
 @layer components {
   .section-title {
-    @apply flex items-center gap-2 text-lg font-bold mb-6 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-200;
+    @apply flex items-center gap-2 text-lg font-bold mb-6 pb-2 border-b border-gray-800 text-gray-200;
   }
 
   .section-content {
-    @apply bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-100 dark:border-gray-700 shadow-md;
+    @apply bg-black rounded-lg p-6 border border-gray-800 shadow-md;
   }
 
   .command-link {
-    @apply text-gray-700 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors;
+    @apply text-gray-300 hover:text-red-500 transition-colors;
   }
 
   .terminal-cursor {
@@ -29,11 +31,11 @@ body {
   }
 
   .skill-card {
-    @apply bg-white dark:bg-gray-800;
+    @apply bg-black;
   }
 
   .project-card {
-    @apply bg-white dark:bg-gray-800;
+    @apply bg-black;
   }
 
   .glitch-text {

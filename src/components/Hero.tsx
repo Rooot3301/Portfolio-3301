@@ -7,7 +7,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-32">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-4 pt-32 bg-black">
       <div className="max-w-4xl mx-auto text-center">
         <div className="flex items-center justify-center gap-3 mb-8">
           <Terminal className="w-12 h-12 text-red-500 animate-pulse" />
@@ -19,7 +19,7 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 font-mono">
+        <p className="text-xl text-gray-400 mb-8 font-mono">
           $ whoami
           <br />
           <span className="text-red-500">&gt;</span> Security Researcher | Penetration Tester | CTF Player
@@ -32,7 +32,7 @@ export default function Hero() {
               e.preventDefault();
               scrollToAbout();
             }}
-            className="px-6 py-3 border border-gray-200 dark:border-gray-800 hover:border-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 rounded-lg transform hover:scale-105"
+            className="px-6 py-3 border border-gray-800 hover:border-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 rounded-lg transform hover:scale-105"
           >
             ./explore.sh
           </a>

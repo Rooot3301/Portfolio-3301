@@ -30,7 +30,7 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-20 px-4 bg-gray-50 dark:bg-gray-900">
+    <section id="skills" className="py-20 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <div className="section-title">
           <Terminal className="w-5 h-5" />
@@ -41,7 +41,7 @@ export default function Skills() {
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="skill-card p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105"
+              className="skill-card p-6 rounded-lg border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105"
             >
               <div className="flex items-center gap-2 mb-4">
                 <skill.icon className="w-5 h-5 text-red-500" />
@@ -49,7 +49,7 @@ export default function Skills() {
               </div>
               <ul className="space-y-1">
                 {skill.items.map((item, idx) => (
-                  <li key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                  <li key={idx} className="text-sm text-gray-400 flex items-center gap-2">
                     <span className="text-red-500">›</span>
                     {item}
                   </li>

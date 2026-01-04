@@ -2,7 +2,7 @@ import { Terminal, Code2, Shield } from 'lucide-react';
 
 export default function About() {
   return (
-    <section id="about" className="py-20 px-4">
+    <section id="about" className="py-20 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <div className="section-title">
           <Terminal className="w-5 h-5" />
@@ -18,7 +18,7 @@ export default function About() {
                   root3301
                 </span>
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed">
                 Security researcher, penetration tester, and cybersecurity enthusiast.
                 Passionate about finding vulnerabilities, breaking systems (legally), and
                 helping organizations improve their security posture.
@@ -26,7 +26,7 @@ export default function About() {
             </div>
 
             <div className="border-l-2 border-red-500 pl-3">
-              <p className="text-sm text-gray-600 dark:text-gray-400 whitespace-pre-wrap">
+              <p className="text-sm text-gray-400 whitespace-pre-wrap">
                 {`$ whoami
 > Security researcher specializing in web application security,
   network penetration testing, and vulnerability research.
@@ -37,7 +37,7 @@ $ cat /etc/interests
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-gray-400">
               <Shield className="w-4 h-4 text-red-500" />
               <span>Always learning, always hacking (ethically)</span>
             </div>

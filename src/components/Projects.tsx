@@ -29,7 +29,7 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-20 px-4 bg-black">
       <div className="max-w-4xl mx-auto">
         <div className="section-title">
           <Terminal className="w-5 h-5" />
@@ -40,20 +40,20 @@ export default function Projects() {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105"
+              className="project-card p-6 rounded-lg border border-gray-800 hover:border-red-500 transition-all duration-300 transform hover:scale-105"
             >
               <div className="flex items-start justify-between mb-4">
                 <h3 className="font-bold text-lg">{project.title}</h3>
                 <a
                   href={project.link}
-                  className="text-gray-500 hover:text-red-500 transition-colors"
+                  className="text-gray-400 hover:text-red-500 transition-colors"
                   aria-label="View project"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
               </div>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-sm text-gray-400 mb-4">
                 {project.description}
               </p>
 
@@ -61,7 +61,7 @@ export default function Projects() {
                 {project.tags.map((tag, idx) => (
                   <span
                     key={idx}
-                    className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded border border-gray-200 dark:border-gray-800"
+                    className="px-2 py-1 text-xs bg-gray-900 text-gray-300 rounded border border-gray-800"
                   >
                     {tag}
                   </span>

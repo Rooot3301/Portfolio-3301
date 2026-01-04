@@ -15,7 +15,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 bg-gray-50 dark:bg-gray-900">
+    <section id="contact" className="py-20 px-4 bg-black">
       <div className="max-w-3xl mx-auto">
         <div className="section-title">
           <Terminal className="w-5 h-5" />
@@ -30,7 +30,7 @@ export default function Contact() {
                 <label htmlFor="email">user@root3301 ~ % enter email:</label>
               </div>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-500">{'>'}</span>
+                <span className="mr-2 text-gray-400">{'>'}</span>
                 <input
                   type="email"
                   id="email"
@@ -48,7 +48,7 @@ export default function Contact() {
                 <label htmlFor="message">user@root3301 ~ % compose message:</label>
               </div>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-500">{'>'}</span>
+                <span className="mr-2 text-gray-400">{'>'}</span>
                 <textarea
                   id="message"
                   value={formData.message}
@@ -62,7 +62,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="px-6 py-2 border border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors terminal-cursor rounded-lg hover:border-red-500 transform hover:scale-105 duration-300"
+              className="px-6 py-2 border border-gray-800 hover:bg-gray-900 transition-colors terminal-cursor rounded-lg hover:border-red-500 transform hover:scale-105 duration-300"
             >
               ./send-message.sh
             </button>

@@ -21,15 +21,23 @@ export default function GitHubProjects() {
   useEffect(() => {
     const fetchRepos = async () => {
       try {
-        const response = await fetch('https://api.github.com/users/Rooot3301/repos?sort=updated&per_page=10');
+        const response = await fetch('https://api.github.com/users/Rooot3301/repos?sort=updated&per_page=10', {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch repositories');
+          const errorData = await response.json().catch(() => ({}));
+          console.error('GitHub API error:', response.status, errorData);
+          throw new Error(`Failed to fetch repositories (${response.status})`);
         }
 
         const data = await response.json();
         setRepos(data);
+        setError(null);
       } catch (err) {
+        console.error('Error fetching repos:', err);
         setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);

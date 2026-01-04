@@ -19,30 +19,34 @@ export default function About() {
                 </span>
               </h2>
               <p className="text-gray-400 leading-relaxed">
-                Spécialiste en cybersécurité et systèmes, chercheur en sécurité et pentester.
-                Experte en hardening de systèmes Windows/Linux, monitoring, analyse OSINT,
-                administration réseau et virtualisation. Passionnée par la découverte de vulnérabilités,
-                le cassage de systèmes (légalement) et l'aide aux organisations pour améliorer
-                leur posture de sécurité.
+                Technicien passionné en cybersécurité, je suis spécialisé
+                dans la protection et la sécurisation des infrastructures
+                informatiques. Mon expertise couvre l'aspect défensif
+                de la sécurité.
               </p>
             </div>
 
             <div className="border-l-2 border-red-500 pl-3">
               <p className="text-sm text-gray-400 whitespace-pre-wrap">
-                {`$ whoami
-> Spécialiste en cybersécurité spécialisée dans le hardening de systèmes,
-  les tests de pénétration, l'analyse OSINT et l'administration d'infrastructures.
+                {`$ cat /usr/experience
+> Virtualisation (VMware, Proxmox)
+> Audit de sécurité
+> Forensics & Investigation
+> Administration système Linux/Windows
+> Sécurité réseau & Monitoring
+> Gestion des incidents de sécurité
 
-$ cat /etc/specialties
-> Hardening Windows/Linux, Vulnérabilités, Monitoring
-> OSINT & Analyse, Collecte automatisée, Reconnaissance
-> Firewalling, VLAN, Analyse de trafic réseau
-> Virtualisation ESXi/VMware, Sauvegardes, AD/GPO
-> Automatisation PowerShell/Python, Scripts d'audit
+$ ls /tools/
+> Wireshark, Nmap
+> Snort, Suricata
+> Kali Linux, ParrotOS
+> SIEM & Log Analysis
+> Vulnerability Assessment Tools
 
-$ cat /etc/interests
-> Sécurité web, compétitions CTF, développement d'exploits,
-  rétro-ingénierie et enseignement de la cybersécurité.`}
+$ cat /certifications
+> Veille technologique active
+> Participation à des CTF
+> Labs & Environnements de test`}
               </p>
             </div>
 

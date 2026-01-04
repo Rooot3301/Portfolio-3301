@@ -8,6 +8,7 @@ import Contact from './components/Contact';
 import Terminal from './components/Terminal';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import ScrollProgress from './components/ScrollProgress';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -47,6 +48,7 @@ function App() {
 
   return (
     <div className={`min-h-screen ${konamiMode ? 'konami-mode' : ''}`}>
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />

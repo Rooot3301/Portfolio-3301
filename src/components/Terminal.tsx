@@ -28,6 +28,7 @@ export default function Terminal() {
     maxAttempts: 5
   });
   const [matrixMode, setMatrixMode] = useState(false);
+  const [suMode, setSuMode] = useState(false);
   const outputRef = useRef<HTMLDivElement>(null);
 
   const kaliArt = `
@@ -279,6 +280,54 @@ Sorry, try again.
 sudo: 3 incorrect password attempts
 Just kidding! You already have root access here.`,
 
+    'su admin': () => {
+      setSuMode(true);
+      return `[root3301@kali]$ su admin
+Password:`;
+    },
+
+    erase: () => {
+      const eraseSite = () => {
+        document.body.style.transition = 'all 2s ease-out';
+        document.body.style.opacity = '0';
+        document.body.style.transform = 'scale(0.8)';
+
+        setTimeout(() => {
+          document.body.innerHTML = `
+            <div style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 100vh;
+              background: #000;
+              color: #0f0;
+              font-family: monospace;
+              font-size: 24px;
+              flex-direction: column;
+              gap: 20px;
+            ">
+              <div style="text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 20px;">SYSTEM ERASED</div>
+                <div style="font-size: 18px; color: #0a0;">All data has been wiped...</div>
+                <div style="font-size: 14px; color: #070; margin-top: 40px;">Just kidding! Rebooting in 3 seconds...</div>
+              </div>
+            </div>
+          `;
+
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }, 2000);
+      };
+
+      eraseSite();
+      return `[!] WARNING: EXECUTING DESTRUCTIVE COMMAND
+[*] Initiating system wipe...
+[*] Deleting all files...
+[*] Removing databases...
+[*] Wiping memory...`;
+    },
+
     decode: () => {
       const secrets = [
         'VGhlIGJlc3QgcGFzc3dvcmQgaXMgdGhlIG9uZSB5b3UgY2FuJ3QgcmVtZW1iZXI=',
@@ -369,6 +418,29 @@ But what is the question?`,
     if (trimmedCmd === '') return;
 
     const newHistory = [...history, `┌──(root3301㉿kali)-[${currentPath}]`, `└─# ${cmd}`];
+
+    // SU admin mode
+    if (suMode) {
+      if (cmd === 'admin') {
+        newHistory.push(`
+╔════════════════════════════════════════════════════════════╗
+║                  ACCESS GRANTED - ADMIN                   ║
+╠════════════════════════════════════════════════════════════╣
+║  You now have administrative privileges!                  ║
+║  Type 'erase' to wipe the system (destructive!)           ║
+║  Type 'exit' to return to normal mode                     ║
+╚════════════════════════════════════════════════════════════╝`);
+        newHistory.push('');
+        setSuMode(false);
+      } else {
+        newHistory.push('su: Authentication failure');
+        newHistory.push('');
+        setSuMode(false);
+      }
+      setHistory(newHistory);
+      setInput('');
+      return;
+    }
 
     // Game logic
     if (gameState.active) {
@@ -472,7 +544,7 @@ But what is the question?`,
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
               <span className="text-xs text-gray-500 ml-2">
-                {gameState.active ? '🎮 GAME MODE' : 'root3301@kali: ~'}
+                {gameState.active ? 'GAME MODE' : suMode ? 'PASSWORD MODE' : 'root3301@kali: ~'}
               </span>
             </div>
 

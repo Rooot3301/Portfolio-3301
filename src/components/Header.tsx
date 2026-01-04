@@ -1,5 +1,6 @@
-import { Terminal, Moon, Sun, Github } from 'lucide-react';
+import { Terminal, Moon, Sun, Github, Shield } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
+import { navigate } from './Router';
 
 export default function Header() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -48,6 +49,14 @@ export default function Header() {
             </button>
 
             <div className="h-4 w-px bg-gray-700"></div>
+
+            <button
+              onClick={() => navigate('/admin')}
+              className="p-2 hover:bg-gray-900 rounded-lg transition-colors hover:text-red-500"
+              aria-label="Admin"
+            >
+              <Shield className="w-4 h-4" />
+            </button>
 
             <a
               href="https://github.com/Rooot3301"

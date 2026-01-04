@@ -3,28 +3,28 @@ import { Terminal, ExternalLink } from 'lucide-react';
 export default function Projects() {
   const projects = [
     {
-      title: 'Scanner de Vulnérabilités',
-      description: 'Scanner de vulnérabilités d\'applications web personnalisé développé en Python. Détecte les vulnérabilités OWASP courantes incluant XSS, SQLi et CSRF.',
-      tags: ['Python', 'Sécurité', 'OWASP'],
-      link: '#'
+      title: 'Syffer',
+      description: 'Outil de Capture de Paquets et de Scan Réseau en ligne de commande. Permet de capturer des paquets réseau et de scanner les appareils connectés au réseau local avec des fonctionnalités OSINT.',
+      tags: ['Python', 'Réseau', 'Sécurité'],
+      link: 'https://github.com/Rooot3301/SYFFER'
     },
     {
-      title: 'Plateforme CTF',
-      description: 'Plateforme Capture The Flag pour l\'entraînement et les compétitions en cybersécurité. Inclut des défis pour tous les niveaux.',
-      tags: ['Node.js', 'React', 'Docker'],
-      link: '#'
+      title: 'NetTrace',
+      description: 'Outil OSINT complet d\'analyse de domaines développé en Python pur sans dépendance à des APIs payantes. Permet une reconnaissance passive approfondie sur n\'importe quel domaine.',
+      tags: ['Python', 'OSINT', 'Reconnaissance'],
+      link: 'https://github.com/Rooot3301/NETTRACE'
     },
     {
-      title: 'Boîte à Outils Sécurité',
-      description: 'Collection de scripts et outils de tests de pénétration pour la reconnaissance, l\'énumération et l\'exploitation.',
-      tags: ['Bash', 'Python', 'Sécurité'],
-      link: '#'
+      title: 'Sentinelize',
+      description: 'SentinelOne Agent Manager v2.0 - Script Bash avancé pour la gestion complète de l\'agent SentinelOne sur Linux avec une interface organisée en sous-menus.',
+      tags: ['Bash', 'Linux', 'SentinelOne'],
+      link: 'https://github.com/Rooot3301/Sentinelize'
     },
     {
-      title: 'Framework Sécurité API',
-      description: 'Framework pour tester et sécuriser les API REST. Inclut des tests automatisés pour l\'authentification, l\'autorisation et les vulnérabilités d\'injection.',
-      tags: ['TypeScript', 'Sécurité', 'API'],
-      link: '#'
+      title: 'Ninjaa',
+      description: 'RMM Agent Manager v2.0 - Script shell avancé pour gérer l\'installation, la mise à jour, la vérification et la désinstallation d\'agents RMM sur des machines Linux (RPM et DEB).',
+      tags: ['Bash', 'Linux', 'RMM'],
+      link: 'https://github.com/Rooot3301/Ninjaa'
     }
   ];
 

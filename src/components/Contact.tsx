@@ -1,4 +1,4 @@
-import { Terminal, Mail, Send } from 'lucide-react';
+import { Terminal, Mail, Send, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Contact() {
@@ -23,6 +23,16 @@ export default function Contact() {
         </div>
 
         <div className="section-content">
+          <div className="mb-8 p-4 border border-gray-800 rounded-lg bg-gray-950">
+            <div className="flex items-center gap-2 mb-2 text-red-500">
+              <MessageCircle className="w-4 h-4" />
+              <span className="text-sm font-mono">Autres moyens de contact:</span>
+            </div>
+            <div className="text-gray-400 text-sm font-mono">
+              <span className="text-gray-500">$</span> Discord: <span className="text-green-400">root3301</span>
+            </div>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="terminal-input">
               <div className="flex items-center gap-2 text-sm mb-2">
